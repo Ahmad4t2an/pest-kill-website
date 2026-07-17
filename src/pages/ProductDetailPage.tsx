@@ -126,12 +126,12 @@ export default function ProductDetailPage() {
 
           {/* Details Tabs */}
           <div className="mt-24">
-            <div className="flex border-b border-border gap-8">
+            <div className="flex border-b border-border gap-5 sm:gap-8 overflow-x-auto scrollbar-hide">
               {['description', 'features', 'benefits', 'safety'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`pb-4 text-lg font-semibold capitalize relative transition-colors ${
+                  className={`shrink-0 pb-4 text-base sm:text-lg font-semibold capitalize relative transition-colors whitespace-nowrap ${
                     activeTab === tab ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >

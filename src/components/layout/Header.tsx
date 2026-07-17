@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import {
   Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube,
-  Menu, X, Search, ChevronDown, Home, Globe,
+  Menu, X, Search, ChevronDown, Home, Globe, Shield, FileText,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';

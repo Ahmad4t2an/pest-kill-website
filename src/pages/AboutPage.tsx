@@ -33,11 +33,12 @@ export default function AboutPage() {
       <div className="py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-24">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="min-w-0"
             >
               <h2 className="font-serif text-4xl font-bold text-foreground mb-6">A Legacy of Protection</h2>
               <div className="space-y-4 text-lg text-muted-foreground">
@@ -57,20 +58,20 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-4 min-w-0"
             >
-              <div className="space-y-4">
+              <div className="space-y-4 min-w-0">
                 <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-muted">
                   <img src={galleryImg2} alt="Laboratory" className="w-full h-full object-cover" />
                 </div>
                 <div className="bg-primary/10 p-6 rounded-2xl">
-                  <div className="text-4xl font-bold text-primary mb-2">2002</div>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">2002</div>
                   <div className="text-sm font-semibold text-foreground">Year Established</div>
                 </div>
               </div>
-              <div className="space-y-4 pt-12">
+              <div className="space-y-4 pt-12 min-w-0">
                 <div className="bg-accent/20 p-6 rounded-2xl">
-                  <div className="text-4xl font-bold text-accent-foreground mb-2">150+</div>
+                  <div className="text-3xl sm:text-4xl font-bold text-accent-foreground mb-2">150+</div>
                   <div className="text-sm font-semibold text-foreground">Registered Products</div>
                 </div>
                 <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-muted">
