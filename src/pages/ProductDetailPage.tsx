@@ -3,8 +3,11 @@ import PageLayout from '@/components/layout/PageLayout';
 import { useRoute } from 'wouter';
 import { products } from '@/data/mock-data';
 import { motion } from 'framer-motion';
-import { Check, ShieldAlert, ArrowLeft, Download, Share2 } from 'lucide-react';
+import { Check, ShieldAlert, ArrowLeft, Download, Share2, Mail } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Link } from 'wouter';
+
+const WHATSAPP_NUMBER = '923000668742';
 
 export default function ProductDetailPage() {
   const [match, params] = useRoute('/products/:slug');
@@ -93,10 +96,23 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <button className="flex-1 bg-primary text-white h-12 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                  Inquire Now
-                </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                    `Assalam-o-Alaikum, I am interested in ${product.name}. Please share more details.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-[#25D366] text-white h-12 rounded-lg font-semibold hover:bg-[#1ebe5b] transition-colors flex items-center justify-center gap-2"
+                >
+                  <FaWhatsapp className="h-5 w-5" /> Inquire on WhatsApp
+                </a>
+                <Link
+                  href={`/contact?product=${encodeURIComponent(product.name)}`}
+                  className="flex-1 bg-primary text-white h-12 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Mail className="h-5 w-5" /> Contact Us
+                </Link>
                 <button className="px-4 border border-border rounded-lg text-foreground hover:bg-muted transition-colors flex items-center justify-center" title="Download Label">
                   <Download className="h-5 w-5" />
                 </button>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearch } from 'wouter';
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
@@ -6,6 +7,28 @@ import { contactInfo } from '@/data/mock-data';
 import { Button } from '@/components/ui/button';
 
 export default function ContactPage() {
+  const search = useSearch();
+  const productFromUrl = new URLSearchParams(search).get('product') || '';
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('Product Inquiry');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (productFromUrl) {
+      setSubject('Product Inquiry');
+      setMessage(`I am interested in ${productFromUrl}. Please share more details.`);
+    }
+  }, [productFromUrl]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const body = `Name: ${firstName} ${lastName}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
+    window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <PageLayout title="Contact Us">
       {/* Header */}
@@ -41,24 +64,24 @@ export default function ContactPage() {
               className="bg-card border rounded-2xl p-8 shadow-sm"
             >
               <h2 className="font-serif text-3xl font-bold text-foreground mb-6">Send us a Message</h2>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">First Name</label>
-                    <input type="text" className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="John" />
+                    <input required type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="John" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Last Name</label>
-                    <input type="text" className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Doe" />
+                    <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Doe" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Email Address</label>
-                  <input type="email" className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="john@example.com" />
+                  <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="john@example.com" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Subject</label>
-                  <select className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none">
+                  <select value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none">
                     <option>Product Inquiry</option>
                     <option>Dealership</option>
                     <option>Technical Support</option>
@@ -67,9 +90,9 @@ export default function ContactPage() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">Message</label>
-                  <textarea rows={4} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="How can we help you?"></textarea>
+                  <textarea required rows={4} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full p-3 rounded-md border bg-background focus:ring-2 focus:ring-primary focus:outline-none" placeholder="How can we help you?"></textarea>
                 </div>
-                <Button className="w-full h-12 bg-primary text-white hover:bg-primary/90 font-semibold text-lg">
+                <Button type="submit" className="w-full h-12 bg-primary text-white hover:bg-primary/90 font-semibold text-lg">
                   <Send className="mr-2 h-5 w-5" /> Send Message
                 </Button>
               </form>
